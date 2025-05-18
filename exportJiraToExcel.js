@@ -13,7 +13,7 @@ dayjs.extend(advancedFormat);
 const JIRA_DOMAIN = 'https://desarrollosica.atlassian.net';
 const EMAIL = 'jhonalejoo@gmail.com';
 const NAME = 'Jhon Alejandro Cuervo Sanchez';
-const API_TOKEN = process.env.ATLASSIAN_TOKEN;
+const API_TOKEN = process.env.API_TOKEN;
 
 // Genera fechas del mes actual
 const hoy = dayjs();
@@ -21,9 +21,8 @@ const primerDia = hoy.startOf('month').format('YYYY-MM-DD');
 const ultimoDia = hoy.endOf('month').format('YYYY-MM-DD');
 const periodoTexto = `${dayjs(primerDia).format('DD/MM/YYYY')}-${dayjs(ultimoDia).format('DD/MM/YYYY')}`;
 
-console.log('Fechas del mes actual:', primerDia, 'a', ultimoDia);
 // JQL: Tareas del usuario en el mes actual
-const JQL = `project = "ScrumSica" AND assignee = currentUser() AND duedate >= "2025-05-01" AND duedate <= "2025-05-31"`;
+const JQL = `project = "ScrumSica" AND assignee = currentUser() AND duedate >= ${primerDia} AND duedate <= ${ultimoDia}`;
 
 // Función principal
 async function exportJiraToExcel() {
